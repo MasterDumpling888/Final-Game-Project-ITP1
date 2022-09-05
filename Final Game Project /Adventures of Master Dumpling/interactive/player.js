@@ -1,7 +1,7 @@
 
 class Player {
   constructor() {
-    this.pos = createVector(100, 10);
+    this.pos = createVector(100, 0);
     this.vel = createVector(0, 0);
     this.gravity = 3;
     this.friction = 0.3;

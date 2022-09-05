@@ -2,8 +2,8 @@ class Platforms {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.d = 0;
-    this.vel = createVector(1.5, 1.5);
+    this.speed = 0;
+    this.vel = createVector(0, 0);
     this.w = blockSize * 2;
     this.h = blockSize / 2;
     this.colour = color(250, 103, 103);
@@ -46,7 +46,7 @@ class CollapsingPlat extends Platforms {
     rectMode(CORNER);
     fill(0);
     if (this.collapseTimer < 10 && this.collapseTimer > 0) {
-      this.colour.setRed(2 * 100 * (sin(millis() / 100))); 
+      this.colour.setRed(2 * 100 * (sin(millis() / 100)));
       super.draw();
     }
   }
@@ -80,18 +80,18 @@ class MovingPlat extends Platforms {
   }
   update() {
     if (this.tx == "X") {
-      let dist = (this.distanceX - this.w) / 2 // distance traveled by platform from centre
-      this.d += 0.01;
-      this.vel.y = 0;
-      this.vel.x = this.anchorX + cos(this.d) * dist - this.x;
+      let distance = (this.distanceX - this.w) / 2 // distance traveled by platform from centre
+      this.speed += 0.01;
+      // this.vel.y = 0;
+      this.vel.x = this.anchorX + cos(this.speed) * distance - this.x;
       this.x += this.vel.x
     }
 
     if (this.tx == "Y") {
-      this.d += 0.011;
-      let dist = (this.distanceY) / 2;
-      this.vel.x = 0;
-      this.vel.y = this.anchorY + sin(this.d) * dist - this.y;
+      let distance = (this.distanceY) / 2;
+      this.speed += 0.011;
+      // this.vel.x = 0;
+      this.vel.y = this.anchorY + sin(this.speed) * distance - this.y;
       this.y += this.vel.y;
     }
   }

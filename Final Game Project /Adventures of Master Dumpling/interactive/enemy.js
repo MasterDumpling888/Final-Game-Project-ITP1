@@ -2,7 +2,8 @@ class Enemy {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.d = 0;
+    this.speed = 0;
+    this.vel = createVector(0, 0);
   }
 
   draw() {
@@ -16,12 +17,10 @@ class Enemy {
 
 //Enemy Sumo - moves horizontally
 class Sumo extends Enemy {
-  constructor(x, y,) {
+  constructor(x, y) {
     super(x, y);
-
-    this.anchorX = x;
-    this.vel = 2.5;
-    this.distance = 500;
+    this.distance = 200;
+    this.anchorX = this.x;
   }
 
   draw() {
@@ -32,19 +31,19 @@ class Sumo extends Enemy {
   }
 
   update() {
-    this.x -= this.vel;
-    if (this.x + blockSize > this.anchorX + this.distance || this.x < this.anchorX) {
-      this.vel = this.vel * -1;
-    }
+    this.speed += 0.0125;
+    this.vel.x = this.anchorX + cos(this.speed) * this.distance - this.x;
+    this.x += this.vel.x;
   }
 }
 
-// Enemy Ninja - moves vertically
+// Enemy Ninja - moves elliptically
 class Ninja extends Enemy {
   constructor(x, y) {
     super(x, y);
-    this.anchorY = y;
-    this.vel = createVector(0, 0);
+    this.distance = 120;
+    this.anchorX = this.x;
+    this.anchorY = (this.y - blockSize) - this.distance / 2;
   }
   draw() {
     let index = floor((frameCount / 15) % 3);
@@ -54,18 +53,10 @@ class Ninja extends Enemy {
   }
 
   update() {
-    // this.y -= this.vel;
-    // if (this.y > this.anchorY || this.y < this.anchorY - 250) {
-    //   this.vel = this.vel * -1;
-    // }
-    this.dY += 0.01;
-    let distY = (250 - blockSize) / 2 // distance traveled by enemy from centre
-    // this.vel = 0;
-    this.vel.y = this.anchorY + sin(this.dY) * distY - this.y;
+    this.speed += 0.0175;
+    this.vel.y = this.anchorY + sin(this.speed) * this.distance - this.y;
     this.y += this.vel.y;
-
-    // this.dX
-
-
+    this.vel.x = this.anchorX + cos(this.speed) * this.distance - this.x;
+    this.x += this.vel.x;
   }
 }
