@@ -228,6 +228,7 @@ function keyPressed() {
       player.changeImg = 10;
       player.isContact = false;
       player.vel.y = -35;
+      jumpSound.play();
     } else if (lives <= 0) {
       gameoverSound.play();
       lives = 3;
