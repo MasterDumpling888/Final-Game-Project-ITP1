@@ -45,6 +45,7 @@ class Ninja extends Enemy {
     this.anchorX = this.x;
     this.anchorY = (this.y - blockSize) - this.distance / 2;
   }
+  
   draw() {
     let index = floor((frameCount / 15) % 3);
 
